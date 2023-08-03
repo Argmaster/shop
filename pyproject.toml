@@ -15,6 +15,7 @@ pydantic = "^2.1.1"
 pydantic-settings = "^2.0.2"
 psycopg2-binary = "^2.9.6"
 gunicorn = "^21.2.0"
+django-stubs-ext = "^4.2.2"
 
 [tool.poetry.group.dev.dependencies]
 mypy = "^1.4.1"
@@ -32,7 +33,7 @@ pytest-xdist = { extras = ["psutil"], version = "^3.3.1" }
 pytest-cov = "^4.1.0"
 types-tzlocal = "^5.0.1.1"
 ipykernel = "^6.25.0"
-django-stubs = "^4.2.3"
+django-stubs = { extras = ["compatible-mypy"], version = "^4.2.3" }
 
 [tool.poetry.group.docs]
 optional = true
@@ -79,7 +80,7 @@ src_paths = ["src", "test"]
 
 [tool.black]
 line-length = 88
-target-version = ['py38']
+target-version = ['py311']
 extend-exclude = '\.pyi?$'
 
 [tool.ruff]
@@ -100,7 +101,7 @@ ignore = [
     "D104",
 ]
 show-fixes = true
-target-version = "py38"
+target-version = "py311"
 src = ["src", "test"]
 
 [tool.ruff.pyupgrade]
@@ -128,7 +129,8 @@ runtime-evaluated-base-classes = [
 #            https://mypy.readthedocs.io/en/stable/command_line.html           #
 #          https://mypy.readthedocs.io/en/stable/cheat_sheet_py3.html          #
 # ---------------------------------------------------------------------------- #
-python_version = "3.8"
+python_version = "3.11"
+plugins = ["mypy_django_plugin.main"]
 packages = "shop"
 # A regular expression that matches file names, directory names and paths which
 # mypy should ignore while recursively discovering files to check. Use forward
@@ -252,3 +254,8 @@ color_output = true
 error_summary = true
 # Show absolute paths to files.
 show_absolute_path = true
+# Required to work with django stubs.
+namespace_packages = false
+
+[tool.django-stubs]
+django_settings_module = "app.shop.settings"

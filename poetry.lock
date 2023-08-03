@@ -525,7 +525,10 @@ files = [
 [package.dependencies]
 django = "*"
 django-stubs-ext = ">=4.2.2"
-mypy = ">=1.0.0"
+mypy = [
+    {version = ">=1.0.0"},
+    {version = "==1.4.*", optional = true, markers = "extra == \"compatible-mypy\""},
+]
 types-pytz = "*"
 types-PyYAML = "*"
 typing-extensions = "*"
@@ -2384,4 +2387,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "bb777f355eda2b377d80f2b43ad9c3f44c22ab639f05077d966595ca2fb37451"
+content-hash = "23f9285a142f24a00b48dd1f837db8b8d4f8f90e5ad20c7aaa48922280e7d9ce"
