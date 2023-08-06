@@ -389,3 +389,5 @@ pyrightconfig.json
 .env.*
 requirements.prod.txt
 requirements.txt
+postgres_data
+staticfiles

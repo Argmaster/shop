@@ -24,7 +24,7 @@ class Settings(BaseSettings):
 
     model_config = SettingsConfigDict(env_prefix="")
 
-    SECRET_KEY: str = Field(default="")
+    SECRET_KEY: str = Field(default="foo")
     """Django secret key value."""
 
     DEBUG: bool = Field(default=False)
@@ -68,6 +68,7 @@ ALLOWED_HOSTS: list[str] = local_settings.get_allowed_hosts()
 # Application definition
 
 INSTALLED_APPS = [
+    "transactions.apps.TransactionsConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -149,7 +150,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Europe/Warsaw"
 
 USE_I18N = True
 
@@ -167,3 +168,9 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 CSRF_TRUSTED_ORIGINS = ["http://localhost:1337"]
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
+
+STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"

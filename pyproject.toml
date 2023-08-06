@@ -16,6 +16,7 @@ pydantic-settings = "^2.0.2"
 psycopg2-binary = "^2.9.6"
 gunicorn = "^21.2.0"
 django-stubs-ext = "^4.2.2"
+pillow = "^10.0.0"
 
 [tool.poetry.group.dev.dependencies]
 mypy = "^1.4.1"
@@ -73,6 +74,7 @@ run-docker-prod = [
     { cmd = "sudo docker-compose -f docker-compose.prod.yml up -d --build" },
 ]
 run-docker-dev = [{ cmd = "sudo docker-compose up -d --build" }]
+manage = { cmd = "poetry run python app/manage.py" }
 
 [tool.isort]
 profile = "black"
