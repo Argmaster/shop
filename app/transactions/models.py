@@ -17,6 +17,17 @@ class Unit(models.Model):
         return self.short_name
 
 
+class Currency(models.Model):
+    """Represents currency which can be used to express value of items."""
+
+    short_name = models.CharField(max_length=100, unique=True)
+
+    long_name = models.TextField(max_length=500)
+
+    def __str__(self) -> str:
+        return self.short_name
+
+
 class Product(models.Model):
     """Model representing a product which can be sold."""
 
@@ -63,10 +74,8 @@ class Transaction(models.Model):
 
     customer = models.ForeignKey(User, on_delete=models.CASCADE)
 
-    products = models.ManyToManyField(Product, through="TransactionItem")
-
     def __str__(self) -> str:
-        return f"Transaction {self.pk} - {self.customer.email}"
+        return f"Transaction {self.pk}"
 
 
 class TransactionItem(models.Model):
@@ -83,14 +92,18 @@ class TransactionItem(models.Model):
 
     unit_of_quantity = models.ForeignKey(
         Unit,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
+        on_delete=models.CASCADE,
     )
     """Unit used to designate quantity."""
 
     unit_price = models.DecimalField(max_digits=10, decimal_places=2)
     """Price of 1 unit of this item."""
 
+    price_currency = models.ForeignKey(Currency, on_delete=models.CASCADE)
+    """Currency used price."""
+
     def __str__(self) -> str:
-        return f"{self.product.name} ({self.quantity})"
+        return (
+            f"{self.product.name} ({self.unit_price}x{self.quantity} "
+            f"{self.unit_of_quantity.short_name})"
+        )
