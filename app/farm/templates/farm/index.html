@@ -1,0 +1,63 @@
+{% extends 'shop/base.html' %} {% load static %} {% block title %} Sklep Makatawi {%
+endblock %} {% block meta %}
+<link rel="stylesheet" href="{% static 'shop/index.css' %}" />
+{% endblock %} {% block content %}
+<a href="/">
+    <div id="makatawi-logo-container">
+        <img
+            id="makatawi-logo-text-background-image"
+            src="{% static 'shop/makatawi_text_background.jpg' %}"
+        />
+        <span class="text font-enormous" id="makatawi-logo-text"> Sklep Makatawi </span>
+    </div>
+</a>
+<div class="container pt-3 pb-5">
+    <div class="row justify-content-center">
+        <!-- Fruit Section Card -->
+        <div class="col-lg-4 col-md-6 mb-4 goto-deeper-card">
+            <a href="order/fruits/" class="">
+                <div class="card shadow-sm">
+                    <img
+                        src="{% static 'shop/blueberry_2.jpg' %}"
+                        alt="Fruits"
+                        class="card-img-top goto-deeper-card-image"
+                    />
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Owoce</h5>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <!-- Fruit Section Card -->
+        <div class="col-lg-4 col-md-6 mb-4 goto-deeper-card">
+            <a href="fruits.html" class="">
+                <div class="card shadow-sm">
+                    <img
+                        src="{% static 'shop/bees.jpg' %}"
+                        alt="Miód"
+                        class="card-img-top goto-deeper-card-image"
+                    />
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Miód</h5>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <!-- Wooden Icons Section Card -->
+        <div class="col-lg-4 col-md-6 mb-4 goto-deeper-card">
+            <a href="wooden-icons.html" class="">
+                <div class="card shadow-sm">
+                    <img
+                        src="{% static 'shop/wooden_icon.jpg' %}"
+                        alt="Wooden Icons"
+                        class="card-img-top goto-deeper-card-image"
+                    />
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Ikony</h5>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

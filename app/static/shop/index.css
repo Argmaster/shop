@@ -1,0 +1,57 @@
+#makatawi-logo-container {
+    position: relative;
+    text-align: center;
+    color: #ffffff;
+    min-height: 33%;
+    max-height: 50%;
+    font-weight: 800;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
+    user-select: none;
+}
+#makatawi-logo-text-background-image {
+    min-height: 33%;
+    width: 100%;
+}
+#makatawi-logo-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+}
+@media (max-width: 401px) {
+    /* For small devices */
+    .font-enormous {
+        font-size: 35px;
+    }
+}
+@media (min-width: 401px) and (max-width: 600px) {
+    /* For medium devices and larger */
+    .font-enormous {
+        font-size: 50px;
+    }
+}
+@media (min-width: 601px) and (max-width: 800px) {
+    /* For medium devices and larger */
+    .font-enormous {
+        font-size: 75px;
+    }
+}
+@media (min-width: 801px) {
+    /* For medium devices and larger */
+    .font-enormous {
+        font-size: 100px;
+    }
+}
+.goto-deeper-card-image {
+    transition: 100ms ease-in-out;
+}
+.goto-deeper-card-image:hover {
+    filter: brightness(1.15);
+}
+.goto-deeper-card {
+    transition: 100ms ease-in-out;
+}
+.goto-deeper-card:hover {
+    transform: scale(0.95);
+}

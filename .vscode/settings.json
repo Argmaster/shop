@@ -1,3 +1,11 @@
 {
-    "cSpell.words": ["asgi", "ASGI", "nwuz", "pydantic", "pylance"]
+    "cSpell.words": ["asgi", "ASGI", "makatawi", "nwuz", "pydantic", "pylance"],
+    "python.analysis.inlayHints.pytestParameters": true,
+    "python.analysis.inlayHints.functionReturnTypes": true,
+    "python.analysis.packageIndexDepths": [
+        {
+            "name": "django",
+            "depth": 10
+        }
+    ]
 }

@@ -21,7 +21,10 @@ from __future__ import annotations
 from django.contrib import admin
 from django.urls import include, path
 
+from shop import views
+
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("order/", include("transactions.urls")),
+    path("farm/", include("farm.urls")),
+    path("", views.index, name="index"),
 ]
