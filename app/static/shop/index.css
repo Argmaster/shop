@@ -10,3 +10,6 @@
 .goto-deeper-card:hover {
     transform: scale(0.95);
 }
+.not-available-card-image {
+    filter: saturate(0);
+}

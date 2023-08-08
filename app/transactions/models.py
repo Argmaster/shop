@@ -92,6 +92,11 @@ class Product(models.Model):
         """Get price of unit with currency as string."""
         return f"{self.unit_price:.2f} {self.price_currency.short_name}"
 
+    @property
+    def is_available_for_purchase(self) -> bool:
+        """Return true if product is available for purchase."""
+        return self.is_ordering_enabled and self.is_public and self.stock_quantity > 0
+
 
 class CustomerInfo(models.Model):
     """Information about customer."""

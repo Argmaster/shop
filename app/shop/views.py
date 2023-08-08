@@ -8,7 +8,7 @@ from django.views import generic
 from transactions.models import Product
 
 if TYPE_CHECKING:
-    from django.db.models import BaseManager
+    from django.db.models import QuerySet
 
 
 class ShopIndexView(generic.ListView):
@@ -17,6 +17,6 @@ class ShopIndexView(generic.ListView):
     template_name = "shop/index.django-html"
     context_object_name = "item_list"
 
-    def get_queryset(self) -> BaseManager[Product]:
+    def get_queryset(self) -> QuerySet[Product]:
         """Return the last five published questions."""
         return Product.objects.filter(is_public=True)
