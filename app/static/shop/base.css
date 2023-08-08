@@ -1,3 +1,7 @@
+* {
+    --bs-primary: #228054;
+    --bs-primary-rgb: 34, 128, 84;
+}
 body {
     min-height: 100vh;
     min-width: 100vw;
@@ -5,19 +9,19 @@ body {
 html {
     width: 100vw;
 }
-a {
+.no-color-link {
     color: black;
     text-decoration: none;
 }
-a:visited {
+.no-color-link:visited {
     color: black;
     text-decoration: none;
 }
-a:active {
+.no-color-link:active {
     color: black;
     text-decoration: none;
 }
-a:hover {
+.no-color-link:hover {
     color: black;
     text-decoration: none;
 }

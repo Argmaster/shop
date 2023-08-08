@@ -1,5 +1,23 @@
 {
-    "cSpell.words": ["asgi", "ASGI", "makatawi", "nwuz", "pydantic", "pylance"],
+    "cSpell.words": [
+        "Amerykańska",
+        "asgi",
+        "ASGI",
+        "Borówka",
+        "litr",
+        "Litrowy",
+        "makatawi",
+        "Malina",
+        "Miód",
+        "nwuz",
+        "Polski",
+        "pydantic",
+        "pylance",
+        "skrzynka",
+        "słoik",
+        "Trzykilogramowa",
+        "Złoty"
+    ],
     "python.analysis.inlayHints.pytestParameters": true,
     "python.analysis.inlayHints.functionReturnTypes": true,
     "python.analysis.packageIndexDepths": [
@@ -7,5 +25,6 @@
             "name": "django",
             "depth": 10
         }
-    ]
+    ],
+    "cSpell.language": "en,pl"
 }

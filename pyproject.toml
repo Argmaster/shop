@@ -6,7 +6,7 @@ authors = ["Krzysztof Wisniewski <argmaster.world@gmail.com>"]
 license = "GPL-3.0-or-later"
 readme = "README.md"
 repository = "https://github.com/Argmaster/shop"
-packages = [{ include = "app" }]
+packages = [{ include = "**/*", from = "app" }]
 
 [tool.poetry.dependencies]
 python = "^3.11"
@@ -76,10 +76,6 @@ run-docker-prod = [
 run-docker-dev = [{ cmd = "sudo docker-compose up -d --build" }]
 manage = { cmd = "poetry run python app/manage.py" }
 
-[tool.isort]
-profile = "black"
-src_paths = ["src", "test"]
-
 [tool.black]
 line-length = 88
 target-version = ['py311']
@@ -104,7 +100,7 @@ ignore = [
 ]
 show-fixes = true
 target-version = "py311"
-src = ["src", "test"]
+src = ["app"]
 
 [tool.ruff.pyupgrade]
 # Preserve types, even if a file imports `from __future__ import annotations`.
@@ -133,7 +129,7 @@ runtime-evaluated-base-classes = [
 # ---------------------------------------------------------------------------- #
 python_version = "3.11"
 plugins = ["mypy_django_plugin.main"]
-packages = "shop"
+packages = "shop,transactions,farm"
 # A regular expression that matches file names, directory names and paths which
 # mypy should ignore while recursively discovering files to check. Use forward
 #slashes (/) as directory separators on all platforms.

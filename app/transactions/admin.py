@@ -5,7 +5,14 @@ from typing import TYPE_CHECKING, ClassVar
 
 from django.contrib import admin
 
-from transactions.models import Currency, Product, Transaction, TransactionItem, Unit
+from transactions.models import (
+    Currency,
+    CustomerInfo,
+    Product,
+    Transaction,
+    TransactionItem,
+    Unit,
+)
 
 if TYPE_CHECKING:
     from django.contrib.admin.options import InlineModelAdmin
@@ -14,24 +21,35 @@ if TYPE_CHECKING:
 class UnitAdmin(admin.ModelAdmin):
     """Customized admin view onto model."""
 
-    list_display = ("short_name", "long_name")
-    search_fields = ("short_name", "long_name")
+    list_display = ("short_name",)
+    search_fields = ("short_name", "description")
     ordering = ("short_name",)
 
 
 class CurrencyAdmin(admin.ModelAdmin):
     """Customized admin view onto model."""
 
-    list_display = ("short_name", "long_name")
-    search_fields = ("short_name", "long_name")
+    list_display = ("short_name",)
+    search_fields = ("short_name", "description")
     ordering = ("short_name",)
 
 
 class ProductAdmin(admin.ModelAdmin):
     """Customized admin view onto model."""
 
-    list_display = ("name", "stock_quantity", "is_stock_public", "unit_price")
-    list_filter = ("is_stock_public",)
+    list_display = (
+        "name",
+        "stock_quantity",
+        "unit_price_with_currency",
+        "is_stock_public",
+        "is_public",
+        "is_ordering_enabled",
+    )
+    list_filter = (
+        "is_stock_public",
+        "is_public",
+        "is_ordering_enabled",
+    )
     search_fields = ("name", "description")
     ordering = ("name",)
 
@@ -42,11 +60,15 @@ class ProductAdmin(admin.ModelAdmin):
                 "fields": (
                     "name",
                     "description",
-                    "image",
+                    "square_image",
+                    "wide_image",
                     "stock_quantity",
-                    "is_stock_public",
                     "unit_quantity",
                     "unit_price",
+                    "price_currency",
+                    "is_stock_public",
+                    "is_public",
+                    "is_ordering_enabled",
                 ),
             },
         ),
@@ -94,6 +116,14 @@ class TransactionAdmin(admin.ModelAdmin):
     inlines: ClassVar[list[type[InlineModelAdmin]]] = [TransactionItemInline]
 
 
+class CustomerInfoAdmin(admin.ModelAdmin):
+    """Customized admin view onto model."""
+
+    list_display = ("name", "surname", "phone_number", "email")
+    search_fields = ("name", "surname", "phone_number", "email")
+    ordering = ("name", "surname")
+
+
 class TransactionItemAdmin(admin.ModelAdmin):
     """Customized admin view onto model."""
 
@@ -128,4 +158,5 @@ admin.site.register(Unit, UnitAdmin)
 admin.site.register(Currency, CurrencyAdmin)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Transaction, TransactionAdmin)
+admin.site.register(CustomerInfo, CustomerInfoAdmin)
 admin.site.register(TransactionItem, TransactionItemAdmin)

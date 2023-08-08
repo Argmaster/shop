@@ -3,12 +3,20 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from django.shortcuts import render
+from django.views import generic
+
+from transactions.models import Product
 
 if TYPE_CHECKING:
-    from django.http import HttpRequest, HttpResponse
+    from django.db.models import BaseManager
 
 
-def index(request: HttpRequest) -> HttpResponse:
-    """Return index page of local orders application."""
-    return render(request, "shop/index.html")
+class ShopIndexView(generic.ListView):
+    """View onto available products."""
+
+    template_name = "shop/index.django-html"
+    context_object_name = "item_list"
+
+    def get_queryset(self) -> BaseManager[Product]:
+        """Return the last five published questions."""
+        return Product.objects.filter(is_public=True)

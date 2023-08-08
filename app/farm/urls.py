@@ -7,5 +7,5 @@ from django.urls import path
 from farm import views
 
 urlpatterns = [
-    path("fruits/", views.index, name="index"),
+    path("<int:product_id>/transaction/", views.make_transaction, name="index"),
 ]

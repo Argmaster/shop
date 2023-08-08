@@ -2,8 +2,17 @@
 
 from __future__ import annotations
 
-from django.contrib.auth.models import User
 from django.db import models
+
+
+def make_price_field() -> models.Field:
+    """Create price field object with predefined constraints."""
+    return models.DecimalField(max_digits=10, decimal_places=4)
+
+
+def make_description_field(length: int | None = None) -> models.Field:
+    """Create description field."""
+    return models.TextField(max_length=length, default="", blank=True)
 
 
 class Unit(models.Model):
@@ -11,7 +20,7 @@ class Unit(models.Model):
 
     short_name = models.CharField(max_length=100, unique=True)
 
-    long_name = models.TextField(max_length=500)
+    description = make_description_field(500)
 
     def __str__(self) -> str:
         return self.short_name
@@ -22,7 +31,7 @@ class Currency(models.Model):
 
     short_name = models.CharField(max_length=100, unique=True)
 
-    long_name = models.TextField(max_length=500)
+    description = make_description_field(500)
 
     def __str__(self) -> str:
         return self.short_name
@@ -34,11 +43,22 @@ class Product(models.Model):
     name = models.CharField(max_length=100)
     """Product name, visible in web GUI"""
 
-    description = models.TextField()
+    description = make_description_field()
     """Product description, visible in web GUI."""
 
-    image = models.ImageField(upload_to="product_images/", null=True, blank=True)
-    """Photo/icon of product."""
+    square_image = models.ImageField(
+        upload_to="product/square_image/",
+        null=True,
+        blank=True,
+    )
+    """Square image of product."""
+
+    wide_image = models.ImageField(
+        upload_to="product/wide_image/",
+        null=True,
+        blank=True,
+    )
+    """Wide image of product."""
 
     stock_quantity = models.PositiveIntegerField(default=0)
     """Product quantity, partially visible in GUI."""
@@ -53,11 +73,43 @@ class Product(models.Model):
         blank=True,
     )
 
-    unit_price = models.DecimalField(max_digits=10, decimal_places=2)
+    unit_price = make_price_field()
     """Price of 1 unit of this item."""
+
+    price_currency = models.ForeignKey(Currency, on_delete=models.CASCADE)
+    """Currency used price."""
+
+    is_public = models.BooleanField(default=False)
+    """Make product visible to customer."""
+
+    is_ordering_enabled = models.BooleanField(default=False)
+    """Control customers ability to order this product."""
 
     def __str__(self) -> str:
         return self.name
+
+    def unit_price_with_currency(self) -> str:
+        """Get price of unit with currency as string."""
+        return f"{self.unit_price:.2f} {self.price_currency.short_name}"
+
+
+class CustomerInfo(models.Model):
+    """Information about customer."""
+
+    name = models.TextField()
+    """Customers name, always available."""
+
+    surname = models.TextField(blank=True)
+    """Customers name, sometimes available."""
+
+    phone_number = models.TextField()
+    """Customers phone number, always available."""
+
+    email = models.EmailField()
+    """Customers email address, always available."""
+
+    def __str__(self) -> str:
+        return f"{self.name} {self.surname} ({self.phone_number})"
 
 
 class Transaction(models.Model):
@@ -72,7 +124,14 @@ class Transaction(models.Model):
     finalization_date = models.DateTimeField()
     """Date when transactions was finalized."""
 
-    customer = models.ForeignKey(User, on_delete=models.CASCADE)
+    customer = models.ForeignKey(CustomerInfo, on_delete=models.CASCADE)
+    """Reference to customer info."""
+
+    comment = make_description_field()
+    """Comment added by customer"""
+
+    is_finalized = models.BooleanField(default=False)
+    """Boolean indicator of transaction finalization."""
 
     def __str__(self) -> str:
         return f"Transaction {self.pk}"
@@ -87,7 +146,7 @@ class TransactionItem(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     """Product exchanged in transaction."""
 
-    quantity = models.PositiveIntegerField(default=1)
+    quantity = models.PositiveIntegerField(default=0)
     """Quantity of items exchanged."""
 
     unit_of_quantity = models.ForeignKey(
@@ -96,7 +155,7 @@ class TransactionItem(models.Model):
     )
     """Unit used to designate quantity."""
 
-    unit_price = models.DecimalField(max_digits=10, decimal_places=2)
+    unit_price = make_price_field()
     """Price of 1 unit of this item."""
 
     price_currency = models.ForeignKey(Currency, on_delete=models.CASCADE)

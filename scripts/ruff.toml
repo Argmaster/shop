@@ -5,4 +5,5 @@ ignore = [
     "INP001", # Ignore implicit namespaces.
     "S603",
     "S607",
+    "D",
 ]

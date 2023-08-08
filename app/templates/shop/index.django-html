@@ -1,0 +1,36 @@
+{% extends 'shop/base.django-html' %}
+{% load static %}
+{% block title %} Sklep Makatawi {% endblock %}
+
+{% block meta %}
+<link rel="stylesheet" href="{% static 'shop/index.css' %}" />
+<link rel="stylesheet" href="{% static 'shop/carousel.css' %}" />
+{% endblock %}
+
+{% block content %}
+{% include "shop/nav.django-html" %}
+{% include "shop/carousel.django-html" %}
+
+<div class="container pt-3 pb-5">
+    <div class="row justify-content-center">
+        {% for item in item_list %}
+        <div class="col-lg-4 col-md-6 p-4 goto-deeper-card">
+            <a href="/farm/{{ item.pk }}/transaction/" class="no-color-link">
+                <div class="card shadow-sm">
+                    <img
+                        src="{% if item.square_image %} {{ item.square_image.url }} {% else %} {% static 'transactions/missing_square_image.jpg' %} {% endif %}"
+                        alt="{{ item.name }}"
+                        class="card-img-top goto-deeper-card-image"
+                    />
+                    <div class="card-body">
+                        <h5 class="card-title text-center">{{ item.name }}</h5>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% include "shop/footer.django-html" %}
+{% endblock %}

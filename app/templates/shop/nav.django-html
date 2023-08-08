@@ -1,0 +1,40 @@
+{% load static %}
+<header class="navbar navbar-expand-lg navbar-dark bd-navbar bg-primary sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary container-xxl">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <img
+                    src="{% static 'shop/makatawi_logo.svg' %}"
+                    alt="Logo"
+                    width="50"
+                    height="50"
+                    class="d-inline-block"
+                />
+                Sklep Makatawi
+            </a>
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link active" aria-current="page" href="/"
+                        >Strona główna</a
+                    >
+                    {% for item in item_list %}
+                    <a class="nav-link" href="/farm/{{ item.pk }}/transaction/"
+                        >{{ item.name }}</a
+                    >
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>

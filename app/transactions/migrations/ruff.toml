@@ -1,2 +1,2 @@
 extend = "../../../pyproject.toml"
-ignore = ["RUF012", "D"]
+ignore = ["RUF012", "D", "I", "COM812"]

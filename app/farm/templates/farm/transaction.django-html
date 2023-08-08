@@ -1,0 +1,31 @@
+{% extends 'shop/base.django-html' %}
+{% load static %}
+
+{% block title %} Sklep Makatawi {% endblock %}
+
+{% block meta %}
+<link rel="stylesheet" href="{% static 'farm/transaction.css' %}" />
+{% endblock %}
+
+{% block content %}
+{% include "shop/nav.django-html" %}
+
+<div class="container pt-3 pb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10 col-sm-12 p-3">
+            <div class="card" style="width: 100%">
+                <img
+                    src="{% if product.wide_image %} {{ product.wide_image.url }} {% else %} {% static 'transactions/missing_wide_image.jpg' %} {% endif %}"
+                    class="card-img-top max-height-50vh-img"
+                    alt="Product image"
+                />
+
+                <div class="card-body p-4">
+                    <h1>Zamów</h1>
+                    <h2>{{ product.name }}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,4 @@
+.max-height-50vh-img {
+    max-height: 33vh;
+    object-fit: cover;
+}
