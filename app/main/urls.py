@@ -18,16 +18,10 @@ Including another URLconf
 """
 from __future__ import annotations
 
-from django.conf.urls.static import static
-from django.contrib import admin
-from django.urls import include, path
+from django.urls import path
 
-from shop import settings
+from main import views
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
-    path("farm/", include("farm.urls")),
-    path("", include("main.urls")),
+    path("", views.ShopIndexView.as_view(), name="index"),
 ]
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

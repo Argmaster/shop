@@ -72,6 +72,8 @@ class Product(models.Model):
         null=True,
         blank=True,
     )
+    """Quantity of items expressed as volume of product in specified unit.
+    (<count> times 1 of <unit>, ie. 6x1KG)."""
 
     unit_price = make_price_field()
     """Price of 1 unit of this item."""
@@ -84,6 +86,12 @@ class Product(models.Model):
 
     is_ordering_enabled = models.BooleanField(default=False)
     """Control customers ability to order this product."""
+
+    index = models.IntegerField(
+        default=0,
+        verbose_name="Index defining ordering of products",
+    )
+    """Index defining product ordering."""
 
     def __str__(self) -> str:
         return self.name

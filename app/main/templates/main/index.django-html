@@ -1,15 +1,15 @@
-{% extends 'shop/base.django-html' %}
+{% extends 'main/base.django-html' %}
 {% load static %}
 {% block title %} Sklep Makatawi {% endblock %}
 
 {% block meta %}
-<link rel="stylesheet" href="{% static 'shop/index.css' %}" />
-<link rel="stylesheet" href="{% static 'shop/carousel.css' %}" />
+<link rel="stylesheet" href="{% static 'main/index.css' %}" />
+<link rel="stylesheet" href="{% static 'main/carousel.css' %}" />
 {% endblock %}
 
 {% block content %}
-{% include "shop/nav.django-html" %}
-{% include "shop/carousel.django-html" %}
+{% include "main/nav.django-html" %}
+{% include "main/carousel.django-html" %}
 
 <div class="container pt-3 pb-5">
     <div class="row justify-content-center">
@@ -47,5 +47,5 @@
     </div>
 </div>
 
-{% include "shop/footer.django-html" %}
+{% include "main/footer.django-html" %}
 {% endblock %}

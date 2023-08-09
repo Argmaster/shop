@@ -68,6 +68,7 @@ ALLOWED_HOSTS: list[str] = local_settings.get_allowed_hosts()
 # Application definition
 
 INSTALLED_APPS = [
+    "main.apps.MainConfig",
     "farm.apps.FarmConfig",
     "transactions.apps.TransactionsConfig",
     "django.contrib.admin",
@@ -163,9 +164,6 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

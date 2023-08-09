@@ -101,6 +101,7 @@ ignore = [
 show-fixes = true
 target-version = "py311"
 src = ["app"]
+extend-exclude = ["migrations"]
 
 [tool.ruff.pyupgrade]
 # Preserve types, even if a file imports `from __future__ import annotations`.

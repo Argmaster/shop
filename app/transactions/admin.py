@@ -44,7 +44,15 @@ class ProductAdmin(admin.ModelAdmin):
         "is_stock_public",
         "is_public",
         "is_ordering_enabled",
+        "index",
     )
+    list_editable = (
+        "stock_quantity",
+        "is_stock_public",
+        "is_public",
+        "is_ordering_enabled",
+        "index",
+    )  # For easier editing directly from the list view
     list_filter = (
         "is_stock_public",
         "is_public",

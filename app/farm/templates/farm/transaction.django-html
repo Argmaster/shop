@@ -1,4 +1,4 @@
-{% extends 'shop/base.django-html' %}
+{% extends 'main/base.django-html' %}
 {% load static %}
 
 {% block title %} Sklep Makatawi {% endblock %}
@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block content %}
-{% include "shop/nav.django-html" %}
+{% include "main/nav.django-html" %}
 
 <div class="container pt-3 pb-5">
     <div class="row justify-content-center">
@@ -21,7 +21,7 @@
                 />
 
                 <div class="card-body p-4">
-                    <h1>Zamów</h1>
+                    <h1>Informacje:</h1>
                     <h2>{{ product.name }}</h2>
                 </div>
             </div>
