@@ -13,7 +13,7 @@ services:
     depends_on:
       - db
   db:
-    image: postgres:15
+    image: docker.io/postgres:15.4-bookworm
     volumes:
       - ./postgres_data:/var/lib/postgresql/data/
     env_file:
