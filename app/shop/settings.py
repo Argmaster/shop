@@ -69,7 +69,7 @@ ALLOWED_HOSTS: list[str] = local_settings.get_allowed_hosts()
 
 INSTALLED_APPS = [
     "main.apps.MainConfig",
-    "transactions.apps.TransactionsConfig",
+    "products.apps.ProductsConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",

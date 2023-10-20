@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING
 from django.http import HttpResponse
 from django.shortcuts import render
 
-from transactions.models import Product
+from products.models import Product
 
 if TYPE_CHECKING:
     from django.http import HttpRequest
@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 def index(_request: HttpRequest) -> HttpResponse:
     """Return index page of local orders application."""
-    return HttpResponse("Hello, world. You're at the transactions index.")
+    return HttpResponse("Hello, world. You're at the products index.")
 
 
 def make_transaction(request: HttpRequest, product_id: int) -> HttpResponse:
@@ -22,7 +22,7 @@ def make_transaction(request: HttpRequest, product_id: int) -> HttpResponse:
     product = Product.objects.get(pk=product_id)
     return render(
         request,
-        "transactions/transaction.django-html",
+        "products/product.django-html",
         {
             "product": product,
         },

@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING, ClassVar
 
 from django.contrib import admin
 
-from transactions.models import (
+from products.models import (
     Currency,
     CustomerInfo,
     Product,

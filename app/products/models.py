@@ -1,4 +1,4 @@
-"""Models used by transactions database."""
+"""Models used by products database."""
 
 from __future__ import annotations
 
@@ -135,7 +135,7 @@ class Transaction(models.Model):
     """Date when transaction was expected to finalize."""
 
     finalization_date = models.DateTimeField()
-    """Date when transactions was finalized."""
+    """Date when products was finalized."""
 
     customer = models.ForeignKey(CustomerInfo, on_delete=models.CASCADE)
     """Reference to customer info."""

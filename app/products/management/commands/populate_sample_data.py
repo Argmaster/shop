@@ -6,7 +6,7 @@ from typing import Any
 
 from django.core.management.base import BaseCommand
 
-from transactions.models import Currency, Product, Unit
+from products.models import Currency, Product, Unit
 
 
 class Command(BaseCommand):

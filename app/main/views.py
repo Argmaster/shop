@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING, Any
 from django.views import generic
 
 from main.models import CarouselImage
-from transactions.models import Product
+from products.models import Product
 
 if TYPE_CHECKING:
     from django.db.models import QuerySet

@@ -29,7 +29,7 @@
                         >Strona główna</a
                     >
                     {% for item in item_list %}
-                    <a class="nav-link" href="/transactions/{{ item.pk }}/"
+                    <a class="nav-link" href="/products/{{ item.pk }}/"
                         >{{ item.name }}</a
                     >
                     {% endfor %}

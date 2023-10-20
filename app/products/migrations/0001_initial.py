@@ -88,7 +88,7 @@ class Migration(migrations.Migration):
                     "price_currency",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        to="transactions.currency",
+                        to="products.currency",
                     ),
                 ),
             ],
@@ -114,7 +114,7 @@ class Migration(migrations.Migration):
                     "customer",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        to="transactions.customerinfo",
+                        to="products.customerinfo",
                     ),
                 ),
             ],
@@ -156,28 +156,28 @@ class Migration(migrations.Migration):
                     "price_currency",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        to="transactions.currency",
+                        to="products.currency",
                     ),
                 ),
                 (
                     "product",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        to="transactions.product",
+                        to="products.product",
                     ),
                 ),
                 (
                     "transaction",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        to="transactions.transaction",
+                        to="products.transaction",
                     ),
                 ),
                 (
                     "unit_of_quantity",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        to="transactions.unit",
+                        to="products.unit",
                     ),
                 ),
             ],
@@ -189,7 +189,7 @@ class Migration(migrations.Migration):
                 blank=True,
                 null=True,
                 on_delete=django.db.models.deletion.SET_NULL,
-                to="transactions.unit",
+                to="products.unit",
             ),
         ),
     ]

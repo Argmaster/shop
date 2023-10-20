@@ -20,13 +20,13 @@ from __future__ import annotations
 
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import include, path
+from django.urls import URLPattern, URLResolver, include, path
 
 from shop import settings
 
-urlpatterns = [
+urlpatterns: list[URLPattern | URLResolver] = [
     path("admin/", admin.site.urls),
-    path("transactions/", include("transactions.urls")),
+    path("products/", include("products.urls")),
     path("", include("main.urls")),
 ]
 if settings.DEBUG:

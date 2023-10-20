@@ -4,7 +4,7 @@
 {% block title %} Sklep Makatawi {% endblock %}
 
 {% block meta %}
-<link rel="stylesheet" href="{% static 'transactions/transaction.css' %}" />
+<link rel="stylesheet" href="{% static 'products/product.css' %}" />
 {% endblock %}
 
 {% block content %}
@@ -15,7 +15,7 @@
         <div class="col-lg-8 col-md-10 col-sm-12 p-3">
             <div class="card" style="width: 100%">
                 <img
-                    src="{% if product.wide_image %} {{ product.wide_image.url }} {% else %} {% static 'transactions/missing_wide_image.jpg' %} {% endif %}"
+                    src="{% if product.wide_image %} {{ product.wide_image.url }} {% else %} {% static 'products/missing_wide_image.jpg' %} {% endif %}"
                     class="card-img-top max-height-50vh-img"
                     alt="Product image"
                 />
