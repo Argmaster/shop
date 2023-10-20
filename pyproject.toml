@@ -130,7 +130,7 @@ runtime-evaluated-base-classes = [
 # ---------------------------------------------------------------------------- #
 python_version = "3.11"
 plugins = ["mypy_django_plugin.main"]
-packages = "shop,transactions,farm"
+packages = "shop,transactions"
 # A regular expression that matches file names, directory names and paths which
 # mypy should ignore while recursively discovering files to check. Use forward
 #slashes (/) as directory separators on all platforms.

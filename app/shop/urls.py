@@ -26,7 +26,7 @@ from shop import settings
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("farm/", include("farm.urls")),
+    path("transactions/", include("transactions.urls")),
     path("", include("main.urls")),
 ]
 if settings.DEBUG:

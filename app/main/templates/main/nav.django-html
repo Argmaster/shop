@@ -29,7 +29,7 @@
                         >Strona główna</a
                     >
                     {% for item in item_list %}
-                    <a class="nav-link" href="/farm/{{ item.pk }}/transaction/"
+                    <a class="nav-link" href="/transactions/{{ item.pk }}/"
                         >{{ item.name }}</a
                     >
                     {% endfor %}

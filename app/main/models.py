@@ -1,4 +1,4 @@
-"""Models used by farm database."""
+"""Models used by home page."""
 
 from __future__ import annotations
 

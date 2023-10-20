@@ -4,7 +4,7 @@
 {% block title %} Sklep Makatawi {% endblock %}
 
 {% block meta %}
-<link rel="stylesheet" href="{% static 'farm/transaction.css' %}" />
+<link rel="stylesheet" href="{% static 'transactions/transaction.css' %}" />
 {% endblock %}
 
 {% block content %}

@@ -16,7 +16,7 @@
         {% for item in item_list %}
             {% if item.is_available_for_purchase %}
             <div class="col-lg-4 col-md-6 p-4 goto-deeper-card">
-                <a href="/farm/{{ item.pk }}/transaction/" class="no-color-link">
+                <a href="/transactions/{{ item.pk }}/" class="no-color-link">
                     <div class="card shadow-sm">
                         <img
                             src="{% if item.square_image %} {{ item.square_image.url }} {% else %} {% static 'transactions/missing_square_image.jpg' %} {% endif %}"
