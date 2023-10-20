@@ -1,37 +1,42 @@
 """Module contains definitions of http endpoints."""
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, Optional
+from typing import Any
 
-from django.http import Http404
-from django.views.generic import DetailView
+from django.http import Http404, HttpRequest, HttpResponse
+from django.shortcuts import get_object_or_404, render
+from django.views import generic
 
+from main.models import SiteConfiguration
 from products.models import ProductCategory
 
-if TYPE_CHECKING:
-    from django.db.models import QuerySet
 
+class ProductCategoryView(generic.View):
+    """View onto available products."""
 
-class ProductCategoryDetailView(DetailView):
-    """Detail view for ProductCategory object."""
+    template_name = "products/product_category.django-html"
 
-    model = ProductCategory
-    template_name = "products/product.django-html"  # Specify your template path here
-    context_object_name = "product_category"
-
-    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
-        """Extend context data."""
-        context = super().get_context_data(**kwargs)
-        context["all_product_categories_list"] = ProductCategory.objects.all()
-        return context
-
-    def get_object(
+    def get(
         self,
-        queryset: Optional[QuerySet[ProductCategory]] = None,
-    ) -> ProductCategory:
-        """Retrieve the object for this view."""
-        obj: ProductCategory = super().get_object(queryset=queryset)
+        request: HttpRequest,
+        *_args: Any,
+        **kwargs: Any,
+    ) -> HttpResponse:
+        """Generate and return GET request response."""
+        context: dict[str, Any] = {}
+
+        context["all_product_categories_list"] = ProductCategory.objects.filter(
+            is_public_category=True,
+        ).order_by("precedence_index")
+
+        context["site_configuration"] = SiteConfiguration.load()
+
+        obj = get_object_or_404(ProductCategory, pk=kwargs.get("pk"))
+
         if not obj.is_public_category:
-            msg = "This category is not public."
-            raise Http404(msg)
-        return obj
+            raise Http404
+
+        context["product_category"] = obj
+        context["product_category_all_products"] = obj.get_all_available_products()
+
+        return render(request, self.template_name, context)

@@ -55,6 +55,9 @@ class ProductCategory(models.Model):
     description = models.TextField(max_length=None, default="", blank=True)
     """Product description, visible for user in GUI."""
 
+    is_description_html = models.BooleanField(default=False)
+    """Toggles rendering description content as html."""
+
     category_image_alt = models.TextField(max_length=None, default="", blank=True)
     """Alternative text for category image."""
 
@@ -82,6 +85,10 @@ class ProductCategory(models.Model):
     def __str__(self) -> str:
         return self.display_name
 
+    def get_all_available_products(self) -> models.QuerySet[Product]:
+        """Get set of all available products."""
+        return self.product_set.filter(is_product_public=True)
+
 
 class Product(models.Model):
     """Model representing a product which can be sold."""
@@ -94,6 +101,9 @@ class Product(models.Model):
 
     description = models.TextField(max_length=None, default="", blank=True)
     """Product description, visible for user in GUI."""
+
+    is_description_html = models.BooleanField(default=False)
+    """Toggles rendering description content as html."""
 
     is_product_public = models.BooleanField(default=False)
     """Toggle product visibility for customers."""
@@ -157,6 +167,14 @@ class Product(models.Model):
             self.is_ordering_enabled
             and self.is_product_public
             and ((not self.is_stock_public) or (self.stock_in_quantity_units > 0))
+        )
+
+    def get_first_image(self) -> ProductPhoto | None:
+        """Return first related ProductPhoto object."""
+        return (
+            ProductPhoto.objects.filter(product=self)
+            .order_by("precedence_index")
+            .first()
         )
 
 

@@ -14,6 +14,7 @@
         />
         <link rel="stylesheet" href="{% static 'main/base.css' %}" />
         <script src="{% static 'main/base.js' %}"></script>
+        <link rel="icon" href="{% static 'main/makatawi_logo.svg' %}">
         {% block meta %}{% endblock %}
     </head>
     <body>

@@ -1,31 +1,56 @@
 {% extends 'main/base.django-html' %}
 {% load static %}
-
 {% block title %} Sklep Makatawi {% endblock %}
 
 {% block meta %}
-<link rel="stylesheet" href="{% static 'products/product.css' %}" />
+<link rel="stylesheet" href="{% static 'main/index.css' %}" />
+<link rel="stylesheet" href="{% static 'main/carousel.css' %}" />
 {% endblock %}
 
 {% block content %}
 {% include "main/nav.django-html" %}
 
-<div class="container pt-3 pb-5">
-    <div class="row justify-content-center">
-        <div class="col-lg-8 col-md-10 col-sm-12 p-3">
-            <div class="card" style="width: 100%">
-                <img
-                    src="{% if product.wide_image %} {{ product.wide_image.url }} {% else %} {% static 'products/missing_wide_image.jpg' %} {% endif %}"
-                    class="card-img-top max-height-50vh-img"
-                    alt="Product image"
-                />
-
-                <div class="card-body p-4">
-                    <h1>Informacje:</h1>
-                    <h2>{{ product.name }}</h2>
-                </div>
-            </div>
+<div class="container p-lg-5 p-md-3 p-2">
+    <div class="row">
+        <div class="col-12 p-lg-4 p-md-4 p-3">
+            <h1>{{ product_category.display_name }}</h1>
+        </div>
+        <div class="col-12 p-lg-4 p-md-4 p-3">
+            {% if product_category.is_description_html %}
+                {% autoescape off %}
+                    <div>{{ product_category.description }}</div>
+                {% endautoescape %}
+            {% else %}
+                <p>{{ product_category.description }}</p>
+            {% endif %}
         </div>
     </div>
+    <div class="row justify-content-center">
+        {% for product in product_category_all_products %}
+            <div class="col-lg-4 col-md-6 p-4 goto-deeper-card">
+                <a href="product/{{ product.pk }}/" class="no-color-link">
+                    <div class="card shadow-sm">
+                        {% with first_image=product.get_first_image %}
+                        <img
+                            src="{% if first_image.image %} {{ first_image.image.url }} {% else %} {% static 'products/missing_square_image.jpg' %} {% endif %}"
+                            alt="{% if first_image %} {{ first_image.alt }} {% endif %}"
+                            class="card-img-top goto-deeper-card-image"
+                        />
+                        {% endwith %}
+                        <div class="card-body">
+                            <h6 class="card-title text-center">{{ product.display_name }}</h6>
+                            <p class="text-secondary">
+                                <span>Kod produktu: {{ product.product_code }}</span><br/>
+                                <span>Oczekiwany czas dostawy: {{ product.expected_delivery_time }}</span>
+                            </p>
+                            <h6 class="card-title text-left">{{ product.unit_price_with_currency }}</h6>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
 </div>
+
+{% include "main/footer.django-html" %}
 {% endblock %}

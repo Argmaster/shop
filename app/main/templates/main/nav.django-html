@@ -33,7 +33,7 @@
                         <ul class="dropdown-menu">
                         {% for category in all_product_categories_list %}
                             <li>
-                                <a class="dropdown-item" href="/products/categories/{{ category.pk }}/products/">
+                                <a class="dropdown-item" href="/products/categories/{{ category.pk }}/">
                                     {{ category.display_name }}
                                 </a>
                             </li>
