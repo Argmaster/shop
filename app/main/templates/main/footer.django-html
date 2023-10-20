@@ -14,29 +14,42 @@
                     class="d-inline-block"
                 />
             </a>
-            <span class="mb-3 mb-md-0 text-muted">© 2023 Makatawi</span>
+            <span class="mb-3 mb-md-0 text-muted">{{ site_configuration.footer_copyright }}</span>
+            <span class="mb-3 mb-md-0 text-muted">{{ site_configuration.contact_phone_number }}</span>
+            <span class="mb-3 mb-md-0 text-muted">{{ site_configuration.contact_email }}</span>
         </div>
 
         <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-            <li class="mr-5">
-                <a
-                    class="text-muted"
-                    href="https://www.facebook.com/groups/529535354742862"
-                >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="32"
-                        height="32"
-                        fill="currentColor"
-                        class="bi bi-facebook"
-                        viewBox="0 0 32 32"
+            {% if site_configuration.contact_facebook_url %}
+                <li class="mr-5">
+                    <a
+                        class="text-muted"
+                        href="{{ site_configuration.contact_facebook_url }}"
                     >
-                        <path
-                            d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"
-                        />
-                    </svg>
-                </a>
-            </li>
+                    {% include "main/facebook_icon.svg" %}
+                    </a>
+                </li>
+            {% endif %}
+            {% if site_configuration.contact_instagram_url %}
+                <li class="mr-5">
+                    <a
+                        class="text-muted"
+                        href="{{ site_configuration.contact_instagram_url }}"
+                    >
+                    {% include "main/facebook_icon.svg" %}
+                    </a>
+                </li>
+            {% endif %}
+            {% if site_configuration.contact_youtube_url %}
+                <li class="mr-5">
+                    <a
+                        class="text-muted"
+                        href="{{ site_configuration.contact_youtube_url }}"
+                    >
+                    {% include "main/facebook_icon.svg" %}
+                    </a>
+                </li>
+            {% endif %}
         </ul>
     </footer>
 </div>

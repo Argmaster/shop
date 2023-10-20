@@ -6,7 +6,14 @@ from typing import Any
 
 from django.core.management.base import BaseCommand
 
-from products.models import Currency, Product, Unit
+from main.models import SiteConfiguration
+from products.models import (
+    Currency,
+    Product,
+    ProductCategory,
+    ProductPhoto,
+    QuantityUnit,
+)
 
 
 class Command(BaseCommand):
@@ -16,57 +23,83 @@ class Command(BaseCommand):
 
     def handle(self, *args: Any, **kwargs: Any) -> None:  # noqa: ARG002
         """Handle command."""
-        # Creating Units
-        kg, created = Unit.objects.get_or_create(
-            short_name="skrzynka (3KG)",
-            description="Trzykilogramowa skrzynka.",
-        )
-        litr, created = Unit.objects.get_or_create(
-            short_name="słoik (1L)",
-            description="Litrowy słoik.",
+        SiteConfiguration.objects.get_or_create(
+            footer_copyright="© 2023 Makatawi",
+            contact_phone_number="",
+            contact_email="",
+            contact_facebook_url="https://www.facebook.com/groups/529535354742862",
+            contact_instagram_url="",
+            contact_youtube_url="",
         )
 
+        # Creating Units
+        items, created = QuantityUnit.objects.get_or_create(
+            display_name="szt.",
+            description="sztuk",
+        )
         # Creating Currency
         pln, created = Currency.objects.get_or_create(
-            short_name="PLN",
+            display_name="PLN",
             description="Polski Złoty",
         )
 
+        lorem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+
         # Creating Sample Products
-        Product.objects.get_or_create(
-            name="Borówka Amerykańska",
-            description="Fresh Blueberries",
-            stock_quantity=100,
-            is_stock_public=True,
-            unit_quantity=kg,
-            unit_price=10.50,
-            price_currency=pln,
-            is_public=True,
-            is_ordering_enabled=True,
+        kom, created = ProductCategory.objects.get_or_create(
+            display_name="Pamiątki komunijne",
+            description=lorem,
+            is_public_category=True,
         )
 
-        Product.objects.get_or_create(
-            name="Malina",
-            description="Fresh Raspberries",
-            stock_quantity=75,
-            is_stock_public=True,
-            unit_quantity=kg,
-            unit_price=12.00,
-            price_currency=pln,
-            is_public=True,
-            is_ordering_enabled=True,
+        ok, created = ProductCategory.objects.get_or_create(
+            display_name="Pamiątki Okolicznościowe",
+            description=lorem,
+            is_public_category=True,
         )
 
-        Product.objects.get_or_create(
-            name="Miód",
-            description="Natural Honey",
-            stock_quantity=50,
-            is_stock_public=True,
-            unit_quantity=litr,
-            unit_price=30.00,
-            price_currency=pln,
-            is_public=True,
-            is_ordering_enabled=True,
+        pas, created = ProductCategory.objects.get_or_create(
+            display_name="Pamiątki pasowania na ucznia",
+            description=lorem,
+            is_public_category=True,
         )
+
+        ab, created = ProductCategory.objects.get_or_create(
+            display_name="Pamiątki dla abiturientów",
+            description=lorem,
+            is_public_category=False,
+        )
+
+        for cat, cat_name in zip(
+            (kom, ok, pas, ab),
+            ("kom", "ok", "pas", "ab"),
+            strict=True,
+        ):
+            for i in range(20):
+                product, created = Product.objects.get_or_create(
+                    product_code=f"{cat_name}-{i}",
+                    display_name=f"Product {cat_name} {i}",
+                    description=lorem,
+                    is_product_public=bool(i % 2),
+                    precedence_index=i,
+                    stock_in_quantity_units=1,
+                    is_stock_public=False,
+                    quantity_units=items,
+                    price_of_one_unit=50.0,
+                    price_currency=pln,
+                    is_price_public=bool(i % 3),
+                    is_ordering_enabled=bool(i % 4),
+                    expected_delivery_time=f"{i} dni",
+                )
+                product: Product
+                product.categories.set((cat,))
+
+                for j in range(4):
+                    ProductPhoto.objects.get_or_create(
+                        name=f"{product.display_name} {j}",
+                        alt=f"alt {product.display_name} {j}",
+                        precedence_index=j,
+                        product=product,
+                    )
 
         self.stdout.write(self.style.SUCCESS("Successfully populated sample data."))

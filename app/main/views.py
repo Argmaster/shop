@@ -3,40 +3,38 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any
 
+from django.shortcuts import render
 from django.views import generic
 
-from main.models import CarouselImage
-from products.models import Product
+from main.models import CarouselImage, SiteConfiguration
+from products.models import ProductCategory
 
 if TYPE_CHECKING:
-    from django.db.models import QuerySet
+    from django.http import HttpRequest, HttpResponse
 
 
-class WithCarouselViewMixin:
-    """Mixin for views which use `carousel.django-html` template."""
-
-    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
-        """Get template context data."""
-        context = {}
-        context.update(super().get_context_data(**kwargs))  # type: ignore[misc]
-        context.update(self.get_carousel_context())
-        return context
-
-    def get_carousel_context(self) -> dict[str, Any]:
-        """Return carousel context."""
-        return {
-            "carousel_images": CarouselImage.objects.filter(is_public=True).order_by(
-                "index",
-            ),
-        }
-
-
-class ShopIndexView(WithCarouselViewMixin, generic.ListView):
+class HomePageView(generic.View):
     """View onto available products."""
 
     template_name = "main/index.django-html"
-    context_object_name = "item_list"
 
-    def get_queryset(self) -> QuerySet[Product]:
-        """Return the last five published questions."""
-        return Product.objects.filter(is_public=True).order_by("index")
+    def get(
+        self,
+        request: HttpRequest,
+        *_args: Any,
+        **_kwargs: Any,
+    ) -> HttpResponse:
+        """Generate and return GET request response."""
+        context: dict[str, Any] = {}
+
+        context["all_carousel_images_list"] = CarouselImage.objects.filter(
+            is_public=True,
+        ).order_by("precedence_index")
+
+        context["all_product_categories_list"] = ProductCategory.objects.filter(
+            is_public_category=True,
+        ).order_by("precedence_index")
+
+        (context["site_configuration"]) = SiteConfiguration.load()
+
+        return render(request, self.template_name, context)

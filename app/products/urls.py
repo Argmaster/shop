@@ -7,5 +7,8 @@ from django.urls import path
 from products import views
 
 urlpatterns = [
-    path("<int:product_id>/", views.make_transaction, name="index"),
+    path(
+        "categories/<int:product_category_id>/products",
+        views.ProductCategoryDetailView.as_view(),
+    ),
 ]

@@ -1,40 +1,50 @@
 {% load static %}
-<header class="navbar navbar-expand-lg navbar-dark bd-navbar bg-primary sticky-top">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary container-xxl">
+<header style="background-color: #a27233; user-select: none;">
+    <nav class="navbar navbar-expand-lg container-xxl">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">
+            <a class="navbar-brand" href="/" style="color: white">
                 <img
                     src="{% static 'main/makatawi_logo.svg' %}"
                     alt="Logo"
-                    width="50"
+                    width="70"
                     height="50"
                     class="d-inline-block"
                 />
-                Sklep Makatawi
+                <span>Sklep Makatawi</span>
             </a>
             <button
-                class="navbar-toggler"
+                class="navbar-toggler m-2"
                 type="button"
                 data-bs-toggle="collapse"
-                data-bs-target="#navbarNavAltMarkup"
-                aria-controls="navbarNavAltMarkup"
+                data-bs-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown"
                 aria-expanded="false"
                 aria-label="Toggle navigation"
             >
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                    <a class="nav-link active" aria-current="page" href="/"
-                        >Strona główna</a
-                    >
-                    {% for item in item_list %}
-                    <a class="nav-link" href="/products/{{ item.pk }}/"
-                        >{{ item.name }}</a
-                    >
-                    {% endfor %}
-                </div>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    {% if all_product_categories_list %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link active dropdown-toggle" style="color: white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Kategorie
+                        </a>
+                        <ul class="dropdown-menu">
+                        {% for category in all_product_categories_list %}
+                            <li>
+                                <a class="dropdown-item" href="/products/categories/{{ category.pk }}/products/">
+                                    {{ category.display_name }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                        </ul>
+                    </li>
+                    {% endif %}
+                </ul>
             </div>
         </div>
     </nav>
 </header>
+
+
