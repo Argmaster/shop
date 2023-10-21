@@ -26,7 +26,12 @@
                         class="text-muted"
                         href="{{ site_configuration.contact_facebook_url }}"
                     >
-                    {% include "main/facebook_icon.svg" %}
+                        <img
+                            src="{% static 'main/facebook_icon.svg' %}"
+                            alt="facebook icon"
+                            class="img-fluid"
+                            width=25
+                        />
                     </a>
                 </li>
             {% endif %}
@@ -36,7 +41,11 @@
                         class="text-muted"
                         href="{{ site_configuration.contact_instagram_url }}"
                     >
-                    {% include "main/facebook_icon.svg" %}
+                        <img
+                            src="{% static 'main/youtube_icon.svg' %}"
+                            alt="instagram icon"
+                            class="img-fluid rounded"
+                        />
                     </a>
                 </li>
             {% endif %}
@@ -46,7 +55,11 @@
                         class="text-muted"
                         href="{{ site_configuration.contact_youtube_url }}"
                     >
-                    {% include "main/facebook_icon.svg" %}
+                        <img
+                            src="{% static 'main/youtube_icon.svg' %}"
+                            alt="facebook icon"
+                            class="img-fluid rounded"
+                        />
                     </a>
                 </li>
             {% endif %}

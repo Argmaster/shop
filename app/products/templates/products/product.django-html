@@ -5,6 +5,7 @@
 {% block meta %}
 <link rel="stylesheet" href="{% static 'main/index.css' %}" />
 <link rel="stylesheet" href="{% static 'main/carousel.css' %}" />
+<script src="{% static 'products/product.js' %}" defer></script>
 {% endblock %}
 
 {% block content %}
@@ -26,33 +27,35 @@
     </nav>
 
     <div class="row">
-        <div class="col-md-4 col-sm-12">
+        <div class="col-lg-5 col-sm-12 col-12 justify-content-center">
             <div>
                 {% for image in product.productphoto_set.all %}
                     <img
                         src="{% if image.image %} {{ image.image.url }} {% else %} {% static 'products/missing_square_image.jpg' %} {% endif %}"
                         alt="{% if image %} {{ image.alt }} {% endif %}"
-                        class="img-fluid rounded {% if forloop.counter != 1 %} d-none {% endif %}"
+                        class="img-fluid rounded product-image-toggled {% if forloop.counter != 1 %} d-none {% endif %}"
+                        id="large-{{ forloop.counter }}"
                     />
                 {% endfor %}
             </div>
-            <div class="w-100 d-flex p-1" style="overflow-x: scroll;">
+            <div class="d-flex p-1" style="overflow-x: scroll;">
                 {% for image in product.productphoto_set.all %}
                     <img
                         src="{% if image.image %} {{ image.image.url }} {% else %} {% static 'products/missing_square_image.jpg' %} {% endif %}"
                         alt="{% if image %} {{ image.alt }} {% endif %}"
-                        class="img-thumbnail"
+                        class="img-thumbnail product-image-toggler"
                         style="width: 100px;"
+                        toggles-image="large-{{ forloop.counter }}"
                     />
                 {% endfor %}
             </div>
         </div>
-        <div class="col-md-8 col-sm-12">
+        <div class="col-lg-7 col-sm-12 col-12">
             <div class="card mb-3">
                 <div class="card-body">
                     <small class="card-title text-secondary">kod produktu: {{ product.product_code }}</small>
                     <h2 class="card-title">{{ product.display_name }}</h2>
-                    <p class="card-text">Oczekiwany czas dotawy: {{ product.expected_delivery_time }}</p>
+                    <p class="card-text">Oczekiwany czas dostawy: {{ product.expected_delivery_time }}</p>
                     <h4 class="card-text text-md-start text-end text-secondary">{{ product.unit_price_with_currency }}</h4>
                 </div>
             </div>
