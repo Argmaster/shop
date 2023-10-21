@@ -1,31 +1,76 @@
 {% extends 'main/base.django-html' %}
 {% load static %}
-
 {% block title %} Sklep Makatawi {% endblock %}
 
 {% block meta %}
-<link rel="stylesheet" href="{% static 'products/product.css' %}" />
+<link rel="stylesheet" href="{% static 'main/index.css' %}" />
+<link rel="stylesheet" href="{% static 'main/carousel.css' %}" />
 {% endblock %}
 
 {% block content %}
 {% include "main/nav.django-html" %}
 
-<div class="container pt-3 pb-5">
-    <div class="row justify-content-center">
-        <div class="col-lg-8 col-md-10 col-sm-12 p-3">
-            <div class="card" style="width: 100%">
-                <img
-                    src="{% if product.wide_image %} {{ product.wide_image.url }} {% else %} {% static 'products/missing_wide_image.jpg' %} {% endif %}"
-                    class="card-img-top max-height-50vh-img"
-                    alt="Product image"
-                />
+<div class="container p-lg-5 p-md-3 p-2">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb p-2">
+            <li class="breadcrumb-item">
+                <a href="/" class="text-decoration-none text-secondary">Makatawi</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="/products/categories/{{ product_category.pk }}/" class="text-decoration-none text-secondary">{{ product_category.display_name }}</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                <a href="#" class="text-decoration-none text-secondary fw-semibold">{{ product.display_name }}</a>
+            </li>
+        </ol>
+    </nav>
 
-                <div class="card-body p-4">
-                    <h1>Informacje:</h1>
-                    <h2>{{ product.name }}</h2>
+    <div class="row">
+        <div class="col-md-4 col-sm-12">
+            <div>
+                {% for image in product.productphoto_set.all %}
+                    <img
+                        src="{% if image.image %} {{ image.image.url }} {% else %} {% static 'products/missing_square_image.jpg' %} {% endif %}"
+                        alt="{% if image %} {{ image.alt }} {% endif %}"
+                        class="img-fluid rounded {% if forloop.counter != 1 %} d-none {% endif %}"
+                    />
+                {% endfor %}
+            </div>
+            <div class="w-100 d-flex p-1" style="overflow-x: scroll;">
+                {% for image in product.productphoto_set.all %}
+                    <img
+                        src="{% if image.image %} {{ image.image.url }} {% else %} {% static 'products/missing_square_image.jpg' %} {% endif %}"
+                        alt="{% if image %} {{ image.alt }} {% endif %}"
+                        class="img-thumbnail"
+                        style="width: 100px;"
+                    />
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-md-8 col-sm-12">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <small class="card-title text-secondary">kod produktu: {{ product.product_code }}</small>
+                    <h2 class="card-title">{{ product.display_name }}</h2>
+                    <p class="card-text">Oczekiwany czas dotawy: {{ product.expected_delivery_time }}</p>
+                    <h4 class="card-text text-md-start text-end text-secondary">{{ product.unit_price_with_currency }}</h4>
                 </div>
+            </div>
+        </div>
+        <div class="col-12 p-lg-4 p-md-4 p-3">
+            <h1>Opis produktu</h1>
+            <div class="col-12 p-lg-4 p-md-4 p-3">
+                {% if product.is_description_html %}
+                    {% autoescape off %}
+                        <div>{{ product.description }}</div>
+                    {% endautoescape %}
+                {% else %}
+                    <p>{{ product.description }}</p>
+                {% endif %}
             </div>
         </div>
     </div>
 </div>
+
+{% include "main/footer.django-html" %}
 {% endblock %}

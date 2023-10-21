@@ -11,10 +11,19 @@
 {% include "main/nav.django-html" %}
 
 <div class="container p-lg-5 p-md-3 p-2">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb p-2">
+            <li class="breadcrumb-item">
+                <a href="/" class="text-decoration-none text-secondary">Makatawi</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="#" class="text-decoration-none text-secondary fw-semibold">{{ product_category.display_name }}</a>
+            </li>
+        </ol>
+    </nav>
+
     <div class="row">
-        <div class="col-12 p-lg-4 p-md-4 p-3">
-            <h1>{{ product_category.display_name }}</h1>
-        </div>
+        <h1>{{ product_category.display_name }}</h1>
         <div class="col-12 p-lg-4 p-md-4 p-3">
             {% if product_category.is_description_html %}
                 {% autoescape off %}
@@ -39,7 +48,7 @@
                         {% endwith %}
                         <div class="card-body">
                             <h6 class="card-title text-center">{{ product.display_name }}</h6>
-                            <p class="text-secondary">
+                            <p class="text-body-secondary">
                                 <span>Kod produktu: {{ product.product_code }}</span><br/>
                                 <span>Oczekiwany czas dostawy: {{ product.expected_delivery_time }}</span>
                             </p>

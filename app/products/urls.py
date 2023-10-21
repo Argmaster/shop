@@ -11,4 +11,8 @@ urlpatterns = [
         "categories/<int:pk>/",
         views.ProductCategoryView.as_view(),
     ),
+    path(
+        "categories/<int:category_pk>/product/<int:product_pk>/",
+        views.ProductView.as_view(),
+    ),
 ]
