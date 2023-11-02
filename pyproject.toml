@@ -10,7 +10,7 @@ packages = [{ include = "**/*", from = "app" }]
 
 [tool.poetry.dependencies]
 python = "^3.11"
-django = "^4.2.4"
+django = "^4.2.7"
 pydantic = "^2.1.1"
 pydantic-settings = "^2.0.2"
 psycopg2-binary = "^2.9.6"
